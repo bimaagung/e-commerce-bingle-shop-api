@@ -8,10 +8,6 @@ const {
 } = require("../controllers/items.controller");
 var router = express.Router();
 
-router.get("/env", function (req, res, next) {
-  res.send(process.env.APP_NAME);
-});
-
 router.get("/", getAllItem);
 
 router.get("/:id", getItemById);
