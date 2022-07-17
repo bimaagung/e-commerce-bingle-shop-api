@@ -1,0 +1,28 @@
+Users :
+1. Name
+2. Telp
+3. Email
+4. Password
+5. Address
+6. Created At
+7. UpdatedAt
+
+Items :
+1. Name
+2. Category
+3. Description
+4. Price
+5. Image
+6. Stock
+7. Sold
+8. CreatedAt
+9. UpdatedAt
+
+Orders : 
+1. User Id
+2. Item Id
+3. Total Item
+4. Total Price
+5. Status
+6. CreatedAt
+7. UpdatedAt
