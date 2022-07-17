@@ -17,13 +17,23 @@ async function register(req, res) {
       address: req.body.address,
     };
 
-    const item = await User.create(user);
-    res.statusCode = 201;
-    res.json({
-      status: "success",
-      message: "Berhasil melakukan pendaftaran",
-      data: item,
-    });
+    const checkUser = await User.findOne({ where: { email: user.email } });
+
+    if (checkUser !== null) {
+      res.statusCode = 400;
+      res.json({
+        status: "fail",
+        message: "Email sudah digunakan",
+      });
+    } else {
+      const item = await User.create(user);
+      res.statusCode = 201;
+      res.json({
+        status: "success",
+        message: "Berhasil melakukan pendaftaran",
+        data: item,
+      });
+    }
   } catch (error) {
     res.statusCode = 400;
     res.json({
