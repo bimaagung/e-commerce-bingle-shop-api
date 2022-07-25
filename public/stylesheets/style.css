@@ -4,5 +4,14 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+
+h1 {
+  font-weight: 100;
+}
+
+.title {
+  text-align: center;
+  margin-top: 15%;
 }
