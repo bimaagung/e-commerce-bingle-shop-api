@@ -162,7 +162,7 @@ Response :
 
 Request :
 
-- Method : GET
+- Method : POST
 - Endpoint : `/api/items/{id_item}`
 - Header :
 
