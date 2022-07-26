@@ -21,7 +21,7 @@ Request :
 ```json 
 {
     "name" : "string",
-    "telp" : "interger",
+    "telp" : "integer",
     "email" : "string",
     "password" : "string"
     "address" : "string"
@@ -35,12 +35,120 @@ Response :
     "status" : "string",
     "message" : "string"
     "data" : {
-         "id" : "string, unique",
+         "id" : "integer, unique",
          "name" : "string",
-         "telp" : "interger",
+         "telp" : "integer",
          "email" : "string",
-         "createdAt" : "date",
-         "updatedAt" : "date"
+         "address" : "string",
+         "updatedAt" : "date",
+         "createdAt" : "date"
+     }
+}
+```
+
+## Login
+
+Request :
+- Method : POST
+- Endpoint : `/api/users`
+- Header :
+    - Content-Type: application/json
+    - Accept: application/json
+- Body :
+
+```json 
+{
+    "email" : "string",
+    "password" : "string"
+}
+```
+
+Response :
+
+```json 
+{
+    "status" : "string",
+    "message" : "string"
+    "data" : {
+         "id" : "integer, unique",
+         "name" : "string",
+         "telp" : "integer",
+         "email" : "string",
+         "address" : "string",
+         "updatedAt" : "date",
+         "createdAt" : "date"
+     }
+}
+```
+
+## Get All Items
+
+Request :
+- Method : GET
+- Endpoint : `/api/items`
+- Header :
+    - Accept: application/json
+
+Response :
+
+```json 
+{
+    "status" : "string",
+    "message" : "string"
+    "data" : [
+        {
+         "id" : "integer, unique",
+         "name" : "string",
+         "category" : "string",
+         "description" : "string",
+         "price" : "integer",
+         "imageUrl" : "integer",
+         "stock" : "integer",
+         "sold" : "integer",
+         "updatedAt" : "date",
+         "createdAt" : "date"
+        },
+        {
+         "id" : "integer, unique",
+         "name" : "string",
+         "category" : "string",
+         "description" : "string",
+         "price" : "integer",
+         "imageUrl" : "integer",
+         "stock" : "integer",
+         "sold" : "integer",
+         "updatedAt" : "date",
+         "createdAt" : "date"
+       }
+     ]
+}
+```
+
+## Get All Items By Id
+
+Request :
+- Method : GET
+- Endpoint : `/api/items/{id_item}`
+- Header :
+    - Accept: application/json
+
+Response :
+
+```json 
+{
+    "status" : "string",
+    "message" : "string"
+    "data" : {
+         "id" : "integer, unique",
+         "name" : "string",
+         "category" : "string",
+         "description" : "string",
+         "price" : "integer",
+         "imageUrl" : "integer",
+         "stock" : "integer",
+         "sold" : "integer",
+         "updatedAt" : "date",
+         "createdAt" : "date"
      }
 }
 ```
