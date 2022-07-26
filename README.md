@@ -157,3 +157,47 @@ Response :
      }
 }
 ```
+
+## Create Item
+
+Request :
+
+- Method : GET
+- Endpoint : `/api/items/{id_item}`
+- Header :
+
+  - Content-Type: application/json
+  - Accept: application/json
+
+- Body :
+
+```json
+{
+  "name": "string",
+  "category": "string",
+  "description": "string",
+  "price": "string",
+  "imageUrl": "string",
+  "stock": "string"
+}
+```
+
+Response :
+
+```json
+{
+    "status" : "string",
+    "message" : "string"
+    "data" : {
+         "id" : "integer, unique",
+         "name" : "string",
+         "category" : "string",
+         "description" : "string",
+         "price" : "integer",
+         "imageUrl" : "integer",
+         "stock" : "integer",
+         "updatedAt" : "date",
+         "createdAt" : "date"
+     }
+}
+```

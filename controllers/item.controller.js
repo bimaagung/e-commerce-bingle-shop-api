@@ -31,7 +31,6 @@ class itemController {
     }
   };
 
-  //  TODO : Get Item By Id
   static get_item_by_id = async (req, res) => {
     const { id } = req.params;
 
@@ -63,6 +62,8 @@ class itemController {
       console.log(`Error get by id Item : ${error.message}`);
     }
   };
+
+  // TODO : Remove property sold
 
   static add_item = async (req, res) => {
     try {
