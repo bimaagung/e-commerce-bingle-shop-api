@@ -1,4 +1,6 @@
-require("dotenv").config();
+require('dotenv').config();
+
+// eslint-disable-next-line object-curly-newline, operator-linebreak
 const { DB_USERNAME, DB_PASSWORD, DB_HOSTNAME, DB_NAME, DB_DIALECT } =
   process.env;
 
