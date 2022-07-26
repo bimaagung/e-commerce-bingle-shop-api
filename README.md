@@ -5,20 +5,22 @@
 All API must use this authentication
 
 Request :
+
 - Header :
-    - X-Api-Key : "your secret api key"
-    
+  - X-Api-Key : "your secret api key"
+
 ## Register
 
 Request :
+
 - Method : POST
 - Endpoint : `/api/users/register`
 - Header :
-    - Content-Type: application/json
-    - Accept: application/json
+  - Content-Type: application/json
+  - Accept: application/json
 - Body :
 
-```json 
+```json
 {
     "name" : "string",
     "telp" : "integer",
@@ -30,7 +32,7 @@ Request :
 
 Response :
 
-```json 
+```json
 {
     "status" : "string",
     "message" : "string"
@@ -49,23 +51,24 @@ Response :
 ## Login
 
 Request :
+
 - Method : POST
 - Endpoint : `/api/users`
 - Header :
-    - Content-Type: application/json
-    - Accept: application/json
+  - Content-Type: application/json
+  - Accept: application/json
 - Body :
 
-```json 
+```json
 {
-    "email" : "string",
-    "password" : "string"
+  "email": "string",
+  "password": "string"
 }
 ```
 
 Response :
 
-```json 
+```json
 {
     "status" : "string",
     "message" : "string"
@@ -84,14 +87,15 @@ Response :
 ## Get All Items
 
 Request :
+
 - Method : GET
 - Endpoint : `/api/items`
 - Header :
-    - Accept: application/json
+  - Accept: application/json
 
 Response :
 
-```json 
+```json
 {
     "status" : "string",
     "message" : "string"
@@ -124,17 +128,18 @@ Response :
 }
 ```
 
-## Get All Items By Id
+## Get Items By Id
 
 Request :
+
 - Method : GET
 - Endpoint : `/api/items/{id_item}`
 - Header :
-    - Accept: application/json
+  - Accept: application/json
 
 Response :
 
-```json 
+```json
 {
     "status" : "string",
     "message" : "string"
