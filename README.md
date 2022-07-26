@@ -163,7 +163,7 @@ Response :
 Request :
 
 - Method : POST
-- Endpoint : `/api/items/{id_item}`
+- Endpoint : `/api/items`
 - Header :
 
   - Content-Type: application/json
@@ -199,5 +199,68 @@ Response :
          "updatedAt" : "date",
          "createdAt" : "date"
      }
+}
+```
+
+## Update Item
+
+Request :
+
+- Method : PUT
+- Endpoint : `/api/items/{id_item}`
+- Header :
+
+  - Content-Type: application/json
+  - Accept: application/json
+
+- Body :
+
+```json
+{
+  "name": "string",
+  "category": "string",
+  "description": "string",
+  "price": "string",
+  "imageUrl": "string",
+  "stock": "string"
+}
+```
+
+Response :
+
+```json
+{
+    "status" : "string",
+    "message" : "string"
+    "data" : {
+         "id" : "integer, unique",
+         "name" : "string",
+         "category" : "string",
+         "description" : "string",
+         "price" : "integer",
+         "imageUrl" : "integer",
+         "stock" : "integer",
+         "sold" : "integer",
+         "updatedAt" : "date",
+         "createdAt" : "date"
+     }
+}
+```
+
+## Delete Item
+
+Request :
+
+- Method : DELETE
+- Endpoint : `/api/items/{id_item}`
+- Header :
+  - Accept: application/json
+
+Response :
+
+```json
+{
+    "status" : "string",
+    "message" : "string"
 }
 ```
