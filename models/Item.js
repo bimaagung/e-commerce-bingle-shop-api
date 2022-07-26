@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Item = sequelize.define(
-    "Item",
+    'Item',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       imageUrl: {
         type: DataTypes.STRING,
-        defaultValue: "default-cover.jpg",
+        defaultValue: 'default-cover.jpg',
         allowNull: false,
       },
       stock: {
@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
     },
-    { tableName: "items" }
+    { tableName: 'items' },
   );
 
   return Item;
