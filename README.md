@@ -12,7 +12,7 @@ Request :
 
 Request :
 - Method : POST
-- Endpoint : `/api/item`
+- Endpoint : `/api/users/register`
 - Header :
     - Content-Type: application/json
     - Accept: application/json
@@ -32,13 +32,13 @@ Response :
 
 ```json 
 {
-    "code" : "number",
     "status" : "string",
+    "message" : "string"
     "data" : {
          "id" : "string, unique",
          "name" : "string",
-         "price" : "long",
-         "quantity" : "integer",
+         "telp" : "interger",
+         "email" : "string",
          "createdAt" : "date",
          "updatedAt" : "date"
      }
