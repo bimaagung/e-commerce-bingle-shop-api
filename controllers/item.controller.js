@@ -86,10 +86,10 @@ class itemController {
   };
 
   static update_item = async (req, res) => {
-    const { id } = req.params.id;
+    const { id } = req.params;
 
     try {
-      let item = await Item.findByPk(id);
+      const item = await Item.findByPk(id);
 
       if (!item) {
         res.statusCode = 404;
@@ -99,7 +99,11 @@ class itemController {
           data: item,
         });
       } else {
-        item = await Item.create(req.body);
+        await Item.update(req.body, {
+          where: {
+            id,
+          },
+        });
         res.statusCode = 200;
         res.json({
           status: 'success',
@@ -119,10 +123,10 @@ class itemController {
   };
 
   static delete_item = async (req, res) => {
-    const { id } = req.params.id;
+    const { id } = req.params;
 
     try {
-      let item = await Item.findByPk(id);
+      const item = await Item.findByPk(id);
 
       if (!item) {
         res.statusCode = 404;
@@ -132,7 +136,7 @@ class itemController {
           data: item,
         });
       } else {
-        item = await Item.destroy({
+        await Item.destroy({
           where: {
             id,
           },

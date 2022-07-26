@@ -32,7 +32,15 @@ class userController {
         res.json({
           status: 'success',
           message: 'Berhasil melakukan pendaftaran',
-          data: item,
+          data: {
+            id: item.id,
+            name: item.name,
+            telp: item.telp,
+            email: item.email,
+            address: item.address,
+            createdAt: item.createdAt,
+            updatedAt: item.updatedAt,
+          },
         });
       }
     } catch (error) {
@@ -61,6 +69,8 @@ class userController {
           check_user.password,
         );
 
+        console.log(check_user);
+
         // Kondisi ketika password sama antara password request dari user dan password ada di db
         if (check_password) {
           res.statusCode = 200;
@@ -73,6 +83,8 @@ class userController {
               telp: check_user.telp,
               email: check_user.email,
               address: check_user.address,
+              createdAt: check_user.createdAt,
+              updatedAt: check_user.updatedAt,
             },
           });
         } else {
