@@ -11,7 +11,11 @@ This api have minimum some feature :
 
 ## ERD
 
-<img src="https://raw.githubusercontent.com/bimaagung/bingle-shop-api/main/public/images/erd_bingle_shop.jpeg?token=GHSAT0AAAAAABWWVBY62CXFSGJPTOKQKLDYYXAT2WQ" width="350"/>
+<div style="width: 250px;">
+  
+  ![](public/images/erd_bingle_shop.jpeg)
+  
+</div>
 
 ## API Spec
 
