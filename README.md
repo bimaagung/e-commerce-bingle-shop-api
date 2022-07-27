@@ -1,3 +1,14 @@
+## API Requirement
+
+This api have minimum some feature :
+
+- Register new customer
+- Login customer
+- Show data items
+- Create new order
+- Update order status
+
+
 ## ERD
 
 <img src="https://raw.githubusercontent.com/bimaagung/bingle-shop-api/main/public/images/erd_bingle_shop.jpeg?token=GHSAT0AAAAAABWWVBY62CXFSGJPTOKQKLDYYXAT2WQ" width="350">
