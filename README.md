@@ -13,7 +13,7 @@ This api have minimum some feature :
 
 <div style="width: 250px;">
   
-  ![](public/images/erd_bingle_shop.jpg)
+  ![](public/images/erd_bingle_shop.jpeg)
   
 </div>
 
@@ -248,7 +248,7 @@ Request :
 Response :
 
 ```json
-{
+  {
     "status" : "string",
     "message" : "string"
     "data" : {
@@ -282,4 +282,45 @@ Response :
     "status" : "string",
     "message" : "string"
 }
+```
+
+
+### Create New Order
+
+Request :
+
+- Method : POST
+- Endpoint : `/api/items/{id_item}`
+- Header :
+
+  - Content-Type: application/json
+  - Accept: application/json
+  
+- Body :
+
+```json
+{
+  "user_id": "integer",
+  "item_id": "integer",
+  "total_item": "interger",
+ }
+```
+
+Response :
+
+```json
+{
+    "status" : "string",
+    "message" : "string"
+    "data" : {
+         "id" : "integer, unique",
+         "name" : "string",
+         "address" : "string",
+         "item_name" : "string",
+         "total_item" : "integer",
+         "total_price" : "integer",
+         "createdAt" : "date"
+         "updatedAt" : "date",
+         
+ }
 ```
