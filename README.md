@@ -1,3 +1,22 @@
+## API Requirement
+
+This api have minimum some feature :
+
+- Register new customer
+- Login customer
+- Show data items
+- Create new order
+- Update order status
+
+
+## ERD
+
+<div style="width: 250px;">
+  
+  ![](public/images/erd_bingle_shop.jpeg)
+  
+</div>
+
 ## API Spec
 
 ### Authentication
