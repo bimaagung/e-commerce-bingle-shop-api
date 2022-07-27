@@ -290,7 +290,7 @@ Response :
 Request :
 
 - Method : POST
-- Endpoint : `/api/items/{id_item}`
+- Endpoint : `/api/orders`
 - Header :
 
   - Content-Type: application/json
@@ -316,11 +316,47 @@ Response :
          "id" : "integer, unique",
          "name" : "string",
          "address" : "string",
-         "item_name" : "string",
+         "item" : "string",
          "total_item" : "integer",
          "total_price" : "integer",
+         "status" : "string"
          "createdAt" : "date"
          "updatedAt" : "date",
          
  }
+```
+
+### Update Order Status
+
+Request :
+
+- Method : PUT
+- Endpoint : `/api/orders/{id_order}`
+- Header :
+
+  - Content-Type: application/json
+  - Accept: application/json
+
+- Body :
+
+```json
+{
+  "status": "integer",
+}
+```
+
+Response :
+
+```json
+  {
+    "status" : "string",
+    "message" : "string"
+    "data" : {
+         "id" : "integer, unique",
+         "name" : "string",
+         "status" : "string"
+         "updatedAt" : "date",
+         "createdAt" : "date"
+     }
+}
 ```
