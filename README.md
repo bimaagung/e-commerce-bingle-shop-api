@@ -1,6 +1,6 @@
-# API Spec
+## API Spec
 
-## Authentication
+### Authentication
 
 All API must use this authentication
 
@@ -9,7 +9,7 @@ Request :
 - Header :
   - X-Api-Key : "your secret api key"
 
-## Register
+### Register
 
 Request :
 
@@ -48,7 +48,7 @@ Response :
 }
 ```
 
-## Login
+### Login
 
 Request :
 
@@ -84,7 +84,7 @@ Response :
 }
 ```
 
-## Get All Items
+### Get All Items
 
 Request :
 
@@ -128,7 +128,7 @@ Response :
 }
 ```
 
-## Get Items By Id
+### Get Items By Id
 
 Request :
 
@@ -158,7 +158,7 @@ Response :
 }
 ```
 
-## Create Item
+### Create Item
 
 Request :
 
@@ -202,7 +202,7 @@ Response :
 }
 ```
 
-## Update Item
+### Update Item
 
 Request :
 
@@ -247,7 +247,7 @@ Response :
 }
 ```
 
-## Delete Item
+### Delete Item
 
 Request :
 
