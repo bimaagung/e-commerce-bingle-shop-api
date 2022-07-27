@@ -13,7 +13,7 @@ This api have minimum some feature :
 
 <div style="width: 250px;">
   
-  ![](public/images/erd_bingle_shop.jpg)
+  ![](public/images/erd_bingle_shop.jpeg)
   
 </div>
 
@@ -248,7 +248,7 @@ Request :
 Response :
 
 ```json
-{
+  {
     "status" : "string",
     "message" : "string"
     "data" : {
@@ -281,5 +281,82 @@ Response :
 {
     "status" : "string",
     "message" : "string"
+}
+```
+
+
+### Create New Order
+
+Request :
+
+- Method : POST
+- Endpoint : `/api/orders`
+- Header :
+
+  - Content-Type: application/json
+  - Accept: application/json
+  
+- Body :
+
+```json
+{
+  "user_id": "integer",
+  "item_id": "integer",
+  "total_item": "interger",
+ }
+```
+
+Response :
+
+```json
+{
+    "status" : "string",
+    "message" : "string"
+    "data" : {
+         "id" : "integer, unique",
+         "name" : "string",
+         "address" : "string",
+         "item" : "string",
+         "total_item" : "integer",
+         "total_price" : "integer",
+         "status" : "string"
+         "createdAt" : "date"
+         "updatedAt" : "date",
+         
+ }
+```
+
+### Update Order Status
+
+Request :
+
+- Method : PUT
+- Endpoint : `/api/orders/{id_order}`
+- Header :
+
+  - Content-Type: application/json
+  - Accept: application/json
+
+- Body :
+
+```json
+{
+  "status": "integer",
+}
+```
+
+Response :
+
+```json
+  {
+    "status" : "string",
+    "message" : "string"
+    "data" : {
+         "id" : "integer, unique",
+         "name" : "string",
+         "status" : "string"
+         "updatedAt" : "date",
+         "createdAt" : "date"
+     }
 }
 ```
