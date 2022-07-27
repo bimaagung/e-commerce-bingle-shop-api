@@ -13,7 +13,7 @@ This api have minimum some feature :
 
 <div style="width: 250px;">
   
-  ![](public/images/erd_bingle_shop.jpeg)
+  ![](public/images/erd_bingle_shop.jpg)
   
 </div>
 
