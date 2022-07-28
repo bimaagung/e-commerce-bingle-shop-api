@@ -1,3 +1,4 @@
+// TODO : Belum selesai, harus disesuaikan
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Orders', {
