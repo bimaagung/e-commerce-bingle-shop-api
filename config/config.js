@@ -1,6 +1,7 @@
+/* eslint-disable object-curly-newline */
 require('dotenv').config();
 
-// eslint-disable-next-line object-curly-newline, operator-linebreak
+// eslint-disable-next-line operator-linebreak
 const { DB_USERNAME, DB_PASSWORD, DB_HOSTNAME, DB_NAME, DB_DIALECT } =
   process.env;
 
