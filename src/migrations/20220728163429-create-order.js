@@ -1,8 +1,7 @@
-// TODO : Belum selesai, harus disesuaikan
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Orders', {
-      id: {
+      orderId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -10,18 +9,26 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
       },
       itemId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
       },
       totalItem: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
       },
       totalPrice: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
       },
       status: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
       },
       createdAt: {
         allowNull: false,
