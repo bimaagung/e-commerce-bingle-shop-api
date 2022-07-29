@@ -72,7 +72,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Order',
-      timestamps: false,
+      timestamps: true,
     },
   );
   return Order;

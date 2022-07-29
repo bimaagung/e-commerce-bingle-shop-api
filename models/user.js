@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
-      emai: {
+      email: {
         type: DataTypes.STRING,
         unique: true,
         validate: {
@@ -67,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'User',
-      timestamps: false,
+      timestamps: true,
     },
   );
   return User;
