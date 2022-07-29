@@ -5,12 +5,12 @@ const router = express.Router();
 
 router.get('/', itemsController.get_all_item);
 
-router.get('/:id', itemsController.get_item_by_id);
+router.get('/:itemId', itemsController.get_item_by_id);
 
 router.post('/', itemsController.add_item);
 
-router.put('/:id', itemsController.update_item);
+router.put('/:itemId', itemsController.update_item);
 
-router.delete('/:id', itemsController.delete_item);
+router.delete('/:itemId', itemsController.delete_item);
 
 module.exports = router;

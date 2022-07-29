@@ -32,10 +32,10 @@ class itemController {
   };
 
   static get_item_by_id = async (req, res) => {
-    const { id } = req.params;
+    const { itemId } = req.params;
 
     try {
-      const item = await Item.findByPk(id);
+      const item = await Item.findOne({ where: { itemId } });
 
       if (!item) {
         res.statusCode = 404;
@@ -86,10 +86,10 @@ class itemController {
   };
 
   static update_item = async (req, res) => {
-    const { id } = req.params;
+    const { itemId } = req.params;
 
     try {
-      const item = await Item.findByPk(id);
+      const item = await Item.findOne({ where: { itemId } });
 
       if (!item) {
         res.statusCode = 404;
@@ -101,7 +101,7 @@ class itemController {
       } else {
         await Item.update(req.body, {
           where: {
-            id,
+            itemId,
           },
         });
         res.statusCode = 200;
@@ -123,10 +123,10 @@ class itemController {
   };
 
   static delete_item = async (req, res) => {
-    const { id } = req.params;
+    const { itemId } = req.params;
 
     try {
-      const item = await Item.findByPk(id);
+      const item = await Item.findOne({ where: { itemId } });
 
       if (!item) {
         res.statusCode = 404;
@@ -138,7 +138,7 @@ class itemController {
       } else {
         await Item.destroy({
           where: {
-            id,
+            itemId,
           },
         });
 
