@@ -12,23 +12,24 @@ module.exports = (sequelize, DataTypes) => {
       orderId: {
         primaryKey: true,
         type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         validate: {
           isUUID: 4,
           notEmpty: true,
         },
       },
       userId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         validate: {
+          isUUID: 4,
           notEmpty: true,
-          isInt: true,
         },
       },
       itemId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         validate: {
+          isUUID: 4,
           notEmpty: true,
-          isInt: true,
         },
       },
       totalItem: {
@@ -37,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
           isInt: true,
         },
+        defaultValue: 0,
       },
       totalPrice: {
         type: DataTypes.INTEGER,
@@ -44,6 +46,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
           isInt: true,
         },
+        defaultValue: 0,
       },
       status: {
         type: DataTypes.INTEGER,
@@ -51,6 +54,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
           isInt: true,
         },
+        defaultValue: 0,
       },
       createdAt: {
         type: DataTypes.DATE,

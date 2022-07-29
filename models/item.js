@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
           isNumeric: true,
         },
+        defaultValue: 0,
       },
       stock: {
         type: DataTypes.INTEGER,
@@ -47,6 +48,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
           isNumeric: true,
         },
+        defaultValue: 0,
       },
       sold: {
         type: DataTypes.INTEGER,
@@ -54,6 +56,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
           isNumeric: true,
         },
+        defaultValue: 0,
       },
       createdAt: {
         type: DataTypes.DATE,
