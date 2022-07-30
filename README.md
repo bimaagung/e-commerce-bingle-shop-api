@@ -329,19 +329,10 @@ Response :
 Request :
 
 - Method : PUT
-- Endpoint : `/api/orders/{id_order}`
+- Endpoint : `/api/orders/update_status_order/{id_order}`
 - Header :
 
-  - Content-Type: application/json
   - Accept: application/json
-
-- Body :
-
-```json
-{
-  "status": "integer"
-}
-```
 
 Response :
 
