@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.post('/', ordersController.create_order);
 
-// router.put('/:id', ordersController.update_status);
+router.put('/update_status_order/:id', ordersController.update_status_order);
 
 module.exports = router;

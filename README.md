@@ -8,7 +8,6 @@ This api have minimum some feature :
 - Create new order
 - Update order status
 
-
 ## ERD
 
 <div style="width: 250px;">
@@ -279,11 +278,10 @@ Response :
 
 ```json
 {
-    "status" : "string",
-    "message" : "string"
+  "status": "string",
+  "message": "string"
 }
 ```
-
 
 ### Create New Order
 
@@ -295,15 +293,15 @@ Request :
 
   - Content-Type: application/json
   - Accept: application/json
-  
+
 - Body :
 
 ```json
 {
   "user_id": "integer",
   "item_id": "integer",
-  "total_item": "interger",
- }
+  "total_item": "interger"
+}
 ```
 
 Response :
@@ -322,7 +320,7 @@ Response :
          "status" : "string"
          "createdAt" : "date"
          "updatedAt" : "date",
-         
+
  }
 ```
 
@@ -341,22 +339,15 @@ Request :
 
 ```json
 {
-  "status": "integer",
+  "status": "integer"
 }
 ```
 
 Response :
 
 ```json
-  {
-    "status" : "string",
-    "message" : "string"
-    "data" : {
-         "id" : "integer, unique",
-         "name" : "string",
-         "status" : "string"
-         "updatedAt" : "date",
-         "createdAt" : "date"
-     }
+{
+  "status": "string",
+  "message": "string"
 }
 ```

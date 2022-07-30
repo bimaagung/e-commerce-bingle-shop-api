@@ -91,6 +91,40 @@ class orderController {
       console.log(`Error create order : ${error.message}`);
     }
   };
+
+  static update_status_order = async (req, res) => {
+    try {
+      const order_id = req.params.id;
+      console.log(order_id);
+
+      const status_order = await Order.update(
+        { status: 1 },
+        { where: { orderId: order_id } },
+      );
+
+      if (status_order) {
+        res.statusCode = 200;
+        res.json({
+          status: 'success',
+          message: 'Berhasil memperbaharui status pesanan ',
+        });
+      } else {
+        res.statusCode = 400;
+        res.json({
+          status: 'fail',
+          message: 'Gagal memperbaharui status pesanan',
+        });
+      }
+    } catch (error) {
+      res.statusCode = 400;
+      res.json({
+        status: 'fail',
+        message: 'Fungsi update status order',
+      });
+
+      console.log(`Error update status order : ${error}`);
+    }
+  };
 }
 
 module.exports = orderController;
