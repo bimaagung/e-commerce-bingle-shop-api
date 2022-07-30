@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const { User } = require('../models');
 
-class userController {
+class UserController {
   static register = async (req, res) => {
     try {
       const saltRounds = 10;
@@ -113,4 +113,4 @@ class userController {
   };
 }
 
-module.exports = userController;
+module.exports = UserController;

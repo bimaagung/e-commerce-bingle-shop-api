@@ -1,6 +1,6 @@
 const { Order, Item, User } = require('../models');
 
-class orderController {
+class OrderController {
   static create_order = async (req, res) => {
     try {
       const id = req.body.itemId;
@@ -127,4 +127,4 @@ class orderController {
   };
 }
 
-module.exports = orderController;
+module.exports = OrderController;

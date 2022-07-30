@@ -1,6 +1,6 @@
 const { Item } = require('../models');
 
-class itemController {
+class ItemController {
   static get_all_item = async (req, res) => {
     try {
       const item = await Item.findAll();
@@ -159,4 +159,4 @@ class itemController {
     }
   };
 }
-module.exports = itemController;
+module.exports = ItemController;
