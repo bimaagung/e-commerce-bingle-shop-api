@@ -24,7 +24,7 @@ const create_order = async (req, res, next) => {
     };
 
     // Memasukkan pesanan
-    await Order.create(body_order);
+    const insert_order = await Order.create(body_order);
 
     // Mengurangi jumlah stock pada item
     const reduce_stock = check_stock.stock - 1;
@@ -38,7 +38,7 @@ const create_order = async (req, res, next) => {
       { where: { itemId: id } },
     );
 
-    const order_id = create_order.orderId;
+    const order_id = insert_order.orderId;
 
     const order_by_id = await Order.findOne({
       where: { orderId: order_id },
@@ -76,7 +76,7 @@ const update_status_order = async (req, res, next) => {
   try {
     const order_id = req.params['id'];
 
-    const check_order = await findOne({ where: { orderId: order_id } });
+    const check_order = await Order.findOne({ where: { orderId: order_id } });
 
     if (!check_order) {
       return res.status(400).json({

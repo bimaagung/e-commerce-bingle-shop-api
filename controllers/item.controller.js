@@ -26,7 +26,7 @@ const get_item_by_id = async (req, res, next) => {
   try {
     const item_id = req.params['itemId'];
 
-    const item = await Item.findOne({ where: { item_id } });
+    const item = await Item.findOne({ where: { itemId: item_id } });
 
     if (!item) {
       return res.status(404).json({
@@ -65,7 +65,7 @@ const update_item = async (req, res, next) => {
   try {
     const item_id = req.params['itemId'];
 
-    const item = await Item.findOne({ where: { item_id } });
+    const item = await Item.findOne({ where: { itemId: item_id } });
 
     if (!item) {
       return res.status(404).json({
@@ -77,7 +77,7 @@ const update_item = async (req, res, next) => {
 
     await Item.update(req.body, {
       where: {
-        item_id,
+        itemId: item_id,
       },
     });
 
@@ -95,19 +95,18 @@ const delete_item = async (req, res, next) => {
   try {
     const item_id = req.params['itemId'];
 
-    const item = await Item.findOne({ where: { item_id } });
+    const item = await Item.findOne({ where: { itemId: item_id } });
 
     if (!item) {
       return res.status(404).json({
         status: 'failed',
         message: 'Item not found',
-        data: item,
       });
     }
 
     await Item.destroy({
       where: {
-        item_id,
+        itemId: item_id,
       },
     });
 
