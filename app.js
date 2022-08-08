@@ -22,12 +22,9 @@ app.use('/api/items', itemsRouter);
 app.use('/api/orders', ordersRouter);
 
 function errorHandler(err, req, res, next) {
-  if (res.headersSent) {
-    return next(err);
-  }
-  res.status(500);
-  res.json({
-    msg: err.message,
+  res.status(500).json({
+    status: 'failed',
+    message: err.message,
   });
 }
 

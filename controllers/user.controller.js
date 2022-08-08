@@ -1,53 +1,39 @@
 const bcrypt = require('bcrypt');
 const { User } = require('../models');
 
-const register = async (req, res) => {
+const register = async (req, res, next) => {
   try {
-    const saltRounds = 10;
-    const plaintTextPassword = req.body['password'];
+    const salt_rounds = 10;
+    const plaint_text_password = req.body['password'];
 
-    const salt = bcrypt.genSaltSync(saltRounds);
-    const passHash = bcrypt.hashSync(plaintTextPassword, salt);
+    const salt = bcrypt.genSaltSync(salt_rounds);
+    const pass_hash = bcrypt.hashSync(plaint_text_password, salt);
 
     const user = {
       name: req.body['name'],
       telp: req.body['telp'],
       email: req.body['email'],
-      password: passHash,
+      password: pass_hash,
       address: req.body['address'],
     };
 
-    const checkUser = await User.findOne({ where: { email: user.email } });
+    const check_user = await User.findOne({ where: { email: user['email'] } });
 
-    if (checkUser !== null) {
-      res.statusCode = 400;
-      return res.json({
+    if (check_user !== null) {
+      return res.status(400).json({
         status: 'failed',
         message: 'Email already used',
       });
     }
 
-    const item = await User.create(user);
+    await User.create(user);
 
-    if (!item) {
-      res.statusCode = 500;
-      return res.json({
-        status: 'failed',
-        message: 'Server error',
-      });
-    }
-
-    res.statusCode = 201;
-    res.json({
+    res.status(201).json({
       status: 'ok',
       message: 'success',
     });
   } catch (error) {
-    res.statusCode = 500;
-    return res.json({
-      status: 'failed',
-      message: error.message,
-    });
+    next(error);
   }
 };
 
@@ -55,13 +41,12 @@ const login = async (req, res, next) => {
   try {
     const input_user = req.body;
 
-    const user = await User.findOne({ where: { emil: input_user.email } });
+    const user = await User.findOne({ where: { email: input_user.email } });
 
     if (!user) {
-      res.statusCode = 404;
-      return res.json({
+      return res.status(404).json({
         status: 'failed',
-        message: 'Data user not found',
+        message: 'User not found',
       });
     }
 
@@ -71,25 +56,20 @@ const login = async (req, res, next) => {
     );
 
     if (!check_password) {
-      res.statusCode = 400;
-      return res.json({
+      return res.status(400).json({
         status: 'failed',
         message: 'Password not match',
       });
     }
 
-    res.statusCode = 200;
-    res.json({
+    res.status(200).json({
       status: 'ok',
       message: 'success',
       data: user,
     });
   } catch (error) {
-    res.statusCode = 500;
-    return res.json({
-      status: 'failed',
-      message: error.message,
-    });
+    next(error);
   }
 };
+
 module.exports = { register, login };

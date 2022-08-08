@@ -1,160 +1,122 @@
 const { Item } = require('../models');
 
-const get_all_item = async (req, res) => {
+const get_all_item = async (req, res, next) => {
   try {
     const item = await Item.findAll();
 
     if (!item) {
-      res.statusCode = 404;
-      res.json({
-        status: 'fail',
-        message: 'Data tidak ditemukan',
-        data: item,
-      });
-    } else {
-      res.statusCode = 200;
-      res.json({
-        status: 'success',
-        message: 'Success get all item',
+      return res.status(404).json({
+        status: 'failed',
+        message: 'Items not found',
         data: item,
       });
     }
-  } catch (error) {
-    res.statusCode = 400;
-    res.json({
-      status: 'fail',
-      message: 'Failed add data item',
-    });
 
-    console.log(`Error get all Item : ${error.message}`);
+    res.status(200).json({
+      status: 'ok',
+      message: 'Success',
+      data: item,
+    });
+  } catch (error) {
+    next(error);
   }
 };
 
-const get_item_by_id = async (req, res) => {
-  const { itemId } = req.params;
-
+const get_item_by_id = async (req, res, next) => {
   try {
-    const item = await Item.findOne({ where: { itemId } });
+    const item_id = req.params['itemId'];
+
+    const item = await Item.findOne({ where: { item_id } });
 
     if (!item) {
-      res.statusCode = 404;
-      res.json({
-        status: 'fail',
-        message: 'Data tidak ditemukan',
-        data: item,
-      });
-    } else {
-      res.statusCode = 200;
-      res.json({
-        status: 'success',
-        message: 'Berhasil mengambil data item',
-        data: item,
+      return res.status(404).json({
+        status: 'failed',
+        message: 'Item not found',
       });
     }
-  } catch (error) {
-    res.statusCode = 400;
-    res.json({
-      status: 'fail',
-      message: 'Gagal mengambil data item',
-    });
 
-    console.log(`Error get by id Item : ${error.message}`);
+    res.status(200).json({
+      status: 'ok',
+      message: 'Success',
+      data: item,
+    });
+  } catch (error) {
+    next(error);
   }
 };
 
 // TODO : Remove property sold
 
-const add_item = async (req, res) => {
+const add_item = async (req, res, next) => {
   try {
     const item = await Item.create(req.body);
-    res.statusCode = 201;
-    res.json({
-      status: 'success',
-      message: 'Berhasil menambah data item',
+
+    res.status(201).json({
+      status: 'ok',
+      message: 'Success',
       data: item,
     });
   } catch (error) {
-    res.statusCode = 400;
-    res.json({
-      status: 'fail',
-      message: 'Gagal menambah data item',
-    });
-
-    console.log(`Error Add Item : ${error.message}`);
+    next(error);
   }
 };
 
-const update_item = async (req, res) => {
-  const { itemId } = req.params;
-
+const update_item = async (req, res, next) => {
   try {
-    const item = await Item.findOne({ where: { itemId } });
+    const item_id = req.params['itemId'];
+
+    const item = await Item.findOne({ where: { item_id } });
 
     if (!item) {
-      res.statusCode = 404;
-      res.json({
-        status: 'fail',
-        message: 'Data tidak ditemukan',
-        data: item,
-      });
-    } else {
-      await Item.update(req.body, {
-        where: {
-          itemId,
-        },
-      });
-      res.statusCode = 200;
-      res.json({
-        status: 'success',
-        message: 'Data item berhasil diupdate ',
+      return res.status(404).json({
+        status: 'failed',
+        message: 'Item not found',
         data: item,
       });
     }
-  } catch (error) {
-    res.statusCode = 400;
-    res.json({
-      status: 'fail',
-      message: 'Data item gagal diupdate',
+
+    await Item.update(req.body, {
+      where: {
+        item_id,
+      },
     });
 
-    console.log(`Error update Item : ${error.message}`);
+    res.status(200).json({
+      status: 'ok',
+      message: 'Success',
+      data: item,
+    });
+  } catch (error) {
+    next(error);
   }
 };
 
-const delete_item = async (req, res) => {
-  const { itemId } = req.params;
-
+const delete_item = async (req, res, next) => {
   try {
-    const item = await Item.findOne({ where: { itemId } });
+    const item_id = req.params['itemId'];
+
+    const item = await Item.findOne({ where: { item_id } });
 
     if (!item) {
-      res.statusCode = 404;
-      res.json({
-        status: 'fail',
-        message: 'Data tidak ditemukan',
+      return res.status(404).json({
+        status: 'failed',
+        message: 'Item not found',
         data: item,
       });
-    } else {
-      await Item.destroy({
-        where: {
-          itemId,
-        },
-      });
-
-      res.statusCode = 200;
-      res.json({
-        status: 'success',
-        message: 'Berhasil menghapus data item',
-      });
     }
-  } catch (error) {
-    res.statusCode = 400;
-    res.json({
-      status: 'fail',
-      message: 'Gagal menghapus data item',
+
+    await Item.destroy({
+      where: {
+        item_id,
+      },
     });
 
-    console.log(`Error delete Item : ${error.message}`);
+    res.status(200).json({
+      status: 'ok',
+      message: 'Success',
+    });
+  } catch (error) {
+    next(error);
   }
 };
 
