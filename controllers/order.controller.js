@@ -1,6 +1,5 @@
 const { Order, Item, Customer } = require('../models');
 
-// TODO : Fixing result output create order Many to Many
 const create_order = async (req, res, next) => {
   try {
     //bulk order
@@ -47,8 +46,6 @@ const create_order = async (req, res, next) => {
         },
       ],
     });
-
-    console.log(order_by_id);
 
     // success add order
     res.status(201).json({
@@ -134,17 +131,47 @@ const get_all_order = async (req, res, next) => {
       });
     }
 
-    console.log(all_order);
-
+    //success get all order
     res.status(200).json({
       status: 'ok',
       message: 'Success',
       data: all_order,
     });
-    //success get all order
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = { create_order, update_status_order, get_all_order };
+const get_order_by_customerId = async (req, res, next) => {
+  try {
+    // get customer Id by params
+    const customer_id = req.params['customerId'];
+
+    // get order by customer id
+    const order = await Order.findAll({ where: { customerId: customer_id } });
+
+    // order not found
+    if (order < 1) {
+      return res.status(400).json({
+        status: 'failed',
+        message: 'Order not found',
+      });
+    }
+
+    //success get order by customer id
+    res.status(200).json({
+      status: 'ok',
+      message: 'Success',
+      data: order,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  create_order,
+  update_status_order,
+  get_all_order,
+  get_order_by_customerId,
+};
