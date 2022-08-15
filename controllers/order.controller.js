@@ -3,6 +3,7 @@ const { Order, Item, Customer } = require('../models');
 // TODO : Fixing result output create order Many to Many
 const create_order = async (req, res, next) => {
   try {
+    //bulk order
     //get id item by req body
     const order_req = req.body;
 
@@ -33,11 +34,16 @@ const create_order = async (req, res, next) => {
 
     //get order by id from db
     const order_by_id = await Order.findOne({
+      attributes: ['orderId', 'totalItem', 'totalPrice', 'status', 'createdAt'],
       where: { orderId: order_id },
       include: [
         {
           model: Customer,
-          as: 'Customer',
+          attributes: ['customerId', 'name', 'telp', 'address'],
+        },
+        {
+          model: Item,
+          attributes: ['itemId', 'name', 'category', 'price'],
         },
       ],
     });
@@ -48,19 +54,7 @@ const create_order = async (req, res, next) => {
     res.status(201).json({
       status: 'ok',
       message: 'Success',
-      data: {
-        id: order_by_id.orderId,
-        total_item: order_by_id.totalItem,
-        total_price: order_by_id.totalPrice,
-        status: order_by_id.status,
-        createdAt: order_by_id.createdAt,
-        updatedAt: order_by_id.updatedAt,
-        customer: {
-          name: order_by_id.Customer.name,
-          telp: order_by_id.Customer.telp,
-          address: order_by_id.Customer.address,
-        },
-      },
+      data: order_by_id,
     });
   } catch (error) {
     next(error);
@@ -115,4 +109,42 @@ const update_status_order = async (req, res, next) => {
   }
 };
 
-module.exports = { create_order, update_status_order };
+const get_all_order = async (req, res, next) => {
+  try {
+    //get all order from db
+    const all_order = await Order.findAll({
+      attributes: ['orderId', 'totalItem', 'totalPrice', 'status', 'createdAt'],
+      include: [
+        {
+          model: Customer,
+          attributes: ['customerId', 'name', 'telp', 'address'],
+        },
+        {
+          model: Item,
+          attributes: ['itemId', 'name', 'category', 'price'],
+        },
+      ],
+    });
+
+    // order not found
+    if (all_order < 1) {
+      return res.status(400).json({
+        status: 'failed',
+        message: 'Order not found',
+      });
+    }
+
+    console.log(all_order);
+
+    res.status(200).json({
+      status: 'ok',
+      message: 'Success',
+      data: all_order,
+    });
+    //success get all order
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { create_order, update_status_order, get_all_order };
