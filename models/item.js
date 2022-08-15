@@ -1,71 +1,36 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Item extends Model {}
+  class Item extends Model {
+    static associate(models) {
+      Item.belongsTo(models.Order, { foreignKey: 'itemId' });
+    }
+  }
   Item.init(
     {
       itemId: {
-        allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV4,
-        type: DataTypes.UUID,
-        validate: {
-          isUUID: 4,
-          notEmpty: true,
-        },
+        type: DataTypes.INTEGER,
       },
       name: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(225),
         validate: {
           notEmpty: true,
         },
       },
       category: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(50),
         validate: {
           notEmpty: true,
         },
       },
-      description: {
-        type: DataTypes.TEXT,
-      },
-      price: {
-        type: DataTypes.INTEGER,
-        validate: {
-          notEmpty: true,
-          isNumeric: true,
-        },
-        defaultValue: 0,
-      },
-      stock: {
-        type: DataTypes.INTEGER,
-        validate: {
-          notEmpty: true,
-          isNumeric: true,
-        },
-        defaultValue: 0,
-      },
-      sold: {
-        type: DataTypes.INTEGER,
-        validate: {
-          notEmpty: true,
-          isNumeric: true,
-        },
-        defaultValue: 0,
-      },
-      createdAt: {
-        type: DataTypes.DATE,
-        validate: {
-          notEmpty: true,
-        },
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-        validate: {
-          notEmpty: true,
-        },
-      },
+      description: DataTypes.TEXT,
+      price: DataTypes.INTEGER,
+      stock: DataTypes.INTEGER,
+      sold: DataTypes.INTEGER,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,

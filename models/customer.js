@@ -1,74 +1,68 @@
+'use strict';
 const { Model } = require('sequelize');
-
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Customer extends Model {
     static associate(models) {
-      User.hasMany(models.Order, { foreignKey: 'userId' });
+      Customer.hasMany(models.Order, { foreignKey: 'customerId' });
     }
   }
-  User.init(
+  Customer.init(
     {
-      userId: {
+      customerId: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV4,
-        type: DataTypes.UUID,
-        validate: {
-          isUUID: 4,
-          notEmpty: true,
-        },
+        type: DataTypes.INTEGER,
       },
       name: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(225),
+        allowNull: false,
         validate: {
           notEmpty: true,
         },
       },
       telp: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING(20),
+        allowNull: false,
         validate: {
           isNumeric: true,
           notEmpty: true,
         },
       },
-      email: {
-        type: DataTypes.STRING,
-        unique: true,
+      username: {
+        type: DataTypes.STRING(225),
+        allowNull: false,
         validate: {
-          isEmail: true,
           notEmpty: true,
         },
       },
       password: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(225),
+        allowNull: false,
         validate: {
           notEmpty: true,
         },
       },
       address: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING(500),
         validate: {
           notEmpty: true,
         },
       },
       createdAt: {
+        allowNull: false,
         type: DataTypes.DATE,
-        validate: {
-          notEmpty: true,
-        },
       },
       updatedAt: {
+        allowNull: false,
         type: DataTypes.DATE,
-        validate: {
-          notEmpty: true,
-        },
       },
     },
     {
       sequelize,
-      modelName: 'User',
+      modelName: 'Customer',
       timestamps: true,
     },
   );
-  return User;
+  return Customer;
 };

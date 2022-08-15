@@ -1,70 +1,65 @@
-const { Order, Item, User } = require('../models');
+const { Order, Item, Customer } = require('../models');
 
+// TODO : Fixing result output create order Many to Many
 const create_order = async (req, res, next) => {
   try {
-    const id = req.body['itemId'];
+    //get id item by req body
+    const order_req = req.body;
 
-    // Cross check ketersediaan stock pada item
-    const check_stock = await Item.findOne({ where: { itemId: id } });
+    // Cross check availability stock of item
+    const check_stock = await Item.findOne({
+      where: { itemId: order_req['itemId'] },
+    });
 
-    if (check_stock.stock < 0) {
+    // stock item is empty
+    if (check_stock.stock === 0) {
       res.status(404).json({
         status: 'failed',
         message: 'Stock item empty',
       });
     }
 
-    const calculate_total_harga = check_stock.price * req.body.totalItem;
+    //calculate total price by total item
+    const cal_total_price = check_stock['price'] * order_req['totalItem'];
 
-    const body_order = {
-      userId: req.body.userId,
-      itemId: req.body.itemId,
-      totalItem: req.body.totalItem,
-      totalPrice: calculate_total_harga,
-    };
+    //add value total price in order object
+    order_req['totalPrice'] = cal_total_price;
 
-    // Memasukkan pesanan
-    const insert_order = await Order.create(body_order);
+    // add order in db
+    const add_order = await Order.create(order_req);
 
-    // Mengurangi jumlah stock pada item
-    const reduce_stock = check_stock.stock - 1;
+    //get order id from db
+    const order_id = add_order.orderId;
 
-    // Menambah jumlah penjualan pada item
-    const add_sold = check_stock.sold + 1;
-
-    // Update jumlah stock dan penjualann pada pada item
-    const update_stock = await Item.update(
-      { stock: reduce_stock, sold: add_sold },
-      { where: { itemId: id } },
-    );
-
-    const order_id = insert_order.orderId;
-
+    //get order by id from db
     const order_by_id = await Order.findOne({
       where: { orderId: order_id },
       include: [
         {
-          model: User,
-        },
-        {
-          model: Item,
+          model: Customer,
+          as: 'Customer',
         },
       ],
     });
 
+    console.log(order_by_id);
+
+    // success add order
     res.status(201).json({
       status: 'ok',
       message: 'Success',
       data: {
         id: order_by_id.orderId,
-        name: order_by_id.User.name,
-        address: order_by_id.User.address,
-        item: order_by_id.Item.name,
         total_item: order_by_id.totalItem,
         total_price: order_by_id.totalPrice,
         status: order_by_id.status,
         createdAt: order_by_id.createdAt,
         updatedAt: order_by_id.updatedAt,
+        customer: {
+          name: order_by_id.Customer.name,
+          telp: order_by_id.Customer.telp,
+          address: order_by_id.Customer.address,
+        },
       },
     });
   } catch (error) {
@@ -74,19 +69,43 @@ const create_order = async (req, res, next) => {
 
 const update_status_order = async (req, res, next) => {
   try {
-    const order_id = req.params['id'];
+    // get id order by params
+    const order_id = req.params['orderId'];
 
-    const check_order = await Order.findOne({ where: { orderId: order_id } });
+    //check status update has been accepted
+    const get_order_by_id = await Order.findOne({
+      where: { orderId: order_id },
+    });
 
-    if (!check_order) {
+    // order not found
+    if (!get_order_by_id) {
       return res.status(400).json({
         status: 'failed',
         message: 'Order not found',
       });
     }
 
+    if (get_order_by_id.status > 0) {
+      return res.status(401).json({
+        status: 'failed',
+        message: 'Order has been accepted',
+      });
+    }
+
+    // get item by id
+    const get_item_by_id = await Item.findOne({
+      where: { itemId: get_order_by_id.itemId },
+    });
+    // reduce amount stock
+    const reduce_stock_item = get_item_by_id.stock - get_order_by_id.totalItem;
+
+    // add amount sold
+    const add_sold_item = get_item_by_id.sold + get_order_by_id.totalItem;
+
+    // update status order is accept
     await Order.update({ status: 1 }, { where: { orderId: order_id } });
 
+    // success update status order
     res.status(200).json({
       status: 'ok',
       message: 'Success',

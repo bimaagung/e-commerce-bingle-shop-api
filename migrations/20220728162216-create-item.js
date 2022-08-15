@@ -3,15 +3,16 @@ module.exports = {
     await queryInterface.createTable('Items', {
       itemId: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(225),
         allowNull: false,
       },
       category: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
         allowNull: false,
       },
       description: {
@@ -20,14 +21,17 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        default: 0,
       },
       stock: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        default: 0,
       },
       sold: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        default: 0,
       },
       createdAt: {
         allowNull: false,

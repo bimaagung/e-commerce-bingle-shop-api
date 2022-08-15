@@ -8,20 +8,15 @@ const host = 'localhost';
 const port = 3000;
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/user.router');
-const itemsRouter = require('./routes/item.router');
-const ordersRouter = require('./routes/order.router');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/', indexRouter);
-app.use('/api/users', usersRouter);
-app.use('/api/items', itemsRouter);
-app.use('/api/orders', ordersRouter);
 
 function errorHandler(err, req, res, next) {
+  console.log(err.message);
   res.status(500).json({
     status: 'failed',
     message: err.message,

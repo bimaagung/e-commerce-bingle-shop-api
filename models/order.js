@@ -3,71 +3,24 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Order extends Model {
     static associate(models) {
-      Order.belongsTo(models.User, { foreignKey: 'userId' });
-      Order.belongsTo(models.Item, { foreignKey: 'itemId' });
+      Order.belongsTo(models.Customer, { foreignKey: 'customerId' });
+      Order.hasMany(models.Item, { foreignKey: 'itemId' });
     }
   }
   Order.init(
     {
       orderId: {
+        autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        validate: {
-          isUUID: 4,
-          notEmpty: true,
-        },
-      },
-      userId: {
-        type: DataTypes.UUID,
-        validate: {
-          isUUID: 4,
-          notEmpty: true,
-        },
-      },
-      itemId: {
-        type: DataTypes.UUID,
-        validate: {
-          isUUID: 4,
-          notEmpty: true,
-        },
-      },
-      totalItem: {
         type: DataTypes.INTEGER,
-        validate: {
-          notEmpty: true,
-          isInt: true,
-        },
-        defaultValue: 0,
       },
-      totalPrice: {
-        type: DataTypes.INTEGER,
-        validate: {
-          notEmpty: true,
-          isInt: true,
-        },
-        defaultValue: 0,
-      },
-      status: {
-        type: DataTypes.INTEGER,
-        validate: {
-          notEmpty: true,
-          isInt: true,
-        },
-        defaultValue: 0,
-      },
-      createdAt: {
-        type: DataTypes.DATE,
-        validate: {
-          notEmpty: true,
-        },
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-        validate: {
-          notEmpty: true,
-        },
-      },
+      customerId: DataTypes.INTEGER,
+      itemId: DataTypes.INTEGER,
+      totalItem: DataTypes.INTEGER,
+      totalPrice: DataTypes.INTEGER,
+      status: { type: DataTypes.INTEGER, defaultValue: 0 },
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,

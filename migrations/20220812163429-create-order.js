@@ -3,26 +3,25 @@ module.exports = {
     await queryInterface.createTable('Orders', {
       orderId: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
       },
-      userId: {
-        type: Sequelize.UUID,
+      customerId: {
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Users',
-          key: 'userId',
+          model: 'Customers',
+          key: 'customerId',
         },
-        onDelete: 'cascade',
       },
       itemId: {
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'Items',
           key: 'itemId',
         },
-        onDelete: 'cascade',
       },
       totalItem: {
         type: Sequelize.INTEGER,
@@ -34,7 +33,7 @@ module.exports = {
       },
       status: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        default: 0,
       },
       createdAt: {
         allowNull: false,
