@@ -1,37 +1,27 @@
+'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Items', {
-      itemId: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
       name: {
-        type: Sequelize.STRING(225),
-        allowNull: false,
+        type: Sequelize.STRING,
       },
-      category: {
-        type: Sequelize.STRING(50),
-        allowNull: false,
-      },
-      description: {
-        type: Sequelize.TEXT,
-      },
-      price: {
+      category_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        default: 0,
       },
       stock: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        default: 0,
       },
       sold: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        default: 0,
+      },
+      price: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
@@ -43,7 +33,6 @@ module.exports = {
       },
     });
   },
-  // eslint-disable-next-line no-unused-vars
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Items');
   },

@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/', indexRouter);
 
 function errorHandler(err, req, res, next) {
-  console.log(err.message);
+  console.log(err);
   res.status(500).json({
     status: 'failed',
     message: err.message,

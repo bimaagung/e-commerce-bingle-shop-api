@@ -1,28 +1,33 @@
-Users :
-1. Name
-2. Telp
-3. Email
-4. Password
-5. Address
-6. Created At
-7. UpdatedAt
+Customer
+1. Login [ok] 
+2. Register [ok]
+3. Get All Item [ok]
+4. Get Item By Category [ok]
+5. Get Item By Id [ok]
+6. Create Order [ok] 
+8. Get Order [ok]
+7. Delete Order
+9. Update Password
 
-Items :
-1. Name
-2. Category
-3. Description
-4. Price
-5. Image
-6. Stock
-7. Sold
-8. CreatedAt
-9. UpdatedAt
 
-Orders : 
-1. User Id
-2. Item Id
-3. Total Item
-4. Total Price
-5. Status
-6. CreatedAt
-7. UpdatedAt
+Admin
+1. Login [ok]
+2. Update Status Order 
+3. Add Item [ok]
+4. Update Item [ok]
+5. Delete Item [ok]
+
+
+  const all_order = await Order.findAll({
+      attributes: ['orderId', 'totalItem', 'totalPrice', 'status', 'createdAt'],
+      include: [
+        {
+          model: Customer,
+          attributes: ['customerId', 'name', 'telp', 'address'],
+        },
+        {
+          model: Item,
+          attributes: ['itemId', 'name', 'category', 'price'],
+        },
+      ],
+    });

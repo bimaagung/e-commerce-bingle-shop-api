@@ -1,36 +1,22 @@
 'use strict';
 const { Model } = require('sequelize');
-
 module.exports = (sequelize, DataTypes) => {
   class Order extends Model {
     static associate(models) {
-      Order.belongsTo(models.Customer, {
-        foreignKey: 'customerId',
-      });
-      Order.belongsTo(models.Item, {
-        foreignKey: 'itemId',
-      });
+      this.hasMany(models.OrderDetail, { foreignKey: 'order_id' });
+      // this.belongsTo(models.Item, { foreignKey: 'item_id' });
+      this.belongsTo(models.User, { foreignKey: 'user_id' });
     }
   }
   Order.init(
     {
-      orderId: {
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.INTEGER,
-      },
-      customerId: DataTypes.INTEGER,
-      itemId: DataTypes.INTEGER,
-      totalItem: DataTypes.INTEGER,
-      totalPrice: DataTypes.INTEGER,
-      status: { type: DataTypes.INTEGER, defaultValue: 0 },
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      user_id: DataTypes.INTEGER,
+      status: DataTypes.STRING,
+      completion_date: DataTypes.DATE,
     },
     {
       sequelize,
       modelName: 'Order',
-      timestamps: true,
     },
   );
   return Order;

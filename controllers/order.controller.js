@@ -1,177 +1,80 @@
 const { Order, Item, Customer } = require('../models');
+const order_uc = require('../usecase/order');
+const res_data = require('../utils/response_data.util');
+const order_constant = require('../internal/constant/order.constant');
 
-const create_order = async (req, res, next) => {
+const createOrder = async (req, res, next) => {
   try {
-    //bulk order
-    //get id item by req body
-    const order_req = req.body;
+    // get req user id with params
+    let user_id = parseInt(req.params['id']);
 
-    // Cross check availability stock of item
-    const check_stock = await Item.findOne({
-      where: { itemId: order_req['itemId'] },
-    });
+    // get req items in body
+    let items = req.body;
 
-    // stock item is empty
-    if (check_stock.stock === 0) {
-      res.status(404).json({
-        status: 'failed',
-        message: 'Stock item empty',
-      });
+    // get pending by user id in db
+    let order_user_id = await order_uc.getOrderPendingByUserId(user_id);
+
+    // check user have order pending
+    if (order_user_id !== null) {
+      return res
+        .status(400)
+        .json(res_data.failed('order still pending', order_user_id));
     }
 
-    //calculate total price by total item
-    const cal_total_price = check_stock['price'] * order_req['totalItem'];
+    // create order
+    await order_uc.createOrder(user_id, items);
 
-    //add value total price in order object
-    order_req['totalPrice'] = cal_total_price;
+    // get pending by user id in db
+    order_user_id = await order_uc.getOrderPendingByUserId(user_id);
 
-    // add order in db
-    const add_order = await Order.create(order_req);
-
-    //get order id from db
-    const order_id = add_order.orderId;
-
-    //get order by id from db
-    const order_by_id = await Order.findOne({
-      attributes: ['orderId', 'totalItem', 'totalPrice', 'status', 'createdAt'],
-      where: { orderId: order_id },
-      include: [
-        {
-          model: Customer,
-          attributes: ['customerId', 'name', 'telp', 'address'],
-        },
-        {
-          model: Item,
-          attributes: ['itemId', 'name', 'category', 'price'],
-        },
-      ],
-    });
-
-    // success add order
-    res.status(201).json({
-      status: 'ok',
-      message: 'Success',
-      data: order_by_id,
-    });
+    // success create order
+    res.status(201).json(res_data.success(order_user_id));
   } catch (error) {
     next(error);
   }
 };
 
-const update_status_order = async (req, res, next) => {
+const getPendingOrderByUserId = async (req, res, next) => {
   try {
-    // get id order by params
-    const order_id = req.params['orderId'];
+    // get user id with params
+    const user_id = parseInt(req.params['id']);
 
-    //check status update has been accepted
-    const get_order_by_id = await Order.findOne({
-      where: { orderId: order_id },
-    });
+    // get all pending order by user id
+    const order = await order_uc.getOrderPendingByUserId(user_id);
 
-    // order not found
-    if (!get_order_by_id) {
-      return res.status(400).json({
-        status: 'failed',
-        message: 'Order not found',
-      });
+    if (order === null) {
+      return res.status(400).json(res_data.failed('no order', order));
     }
 
-    if (get_order_by_id.status > 0) {
-      return res.status(401).json({
-        status: 'failed',
-        message: 'Order has been accepted',
-      });
-    }
-
-    // get item by id
-    const get_item_by_id = await Item.findOne({
-      where: { itemId: get_order_by_id.itemId },
-    });
-    // reduce amount stock
-    const reduce_stock_item = get_item_by_id.stock - get_order_by_id.totalItem;
-
-    // add amount sold
-    const add_sold_item = get_item_by_id.sold + get_order_by_id.totalItem;
-
-    // update status order is accept
-    await Order.update({ status: 1 }, { where: { orderId: order_id } });
-
-    // success update status order
-    res.status(200).json({
-      status: 'ok',
-      message: 'Success',
-    });
+    res.json(res_data.success(order));
   } catch (error) {
     next(error);
   }
 };
 
-const get_all_order = async (req, res, next) => {
+const statusSubmitOrder = async (req, res, next) => {
   try {
-    //get all order from db
-    const all_order = await Order.findAll({
-      attributes: ['orderId', 'totalItem', 'totalPrice', 'status', 'createdAt'],
-      include: [
-        {
-          model: Customer,
-          attributes: ['customerId', 'name', 'telp', 'address'],
-        },
-        {
-          model: Item,
-          attributes: ['itemId', 'name', 'category', 'price'],
-        },
-      ],
-    });
+    // get user id with params
+    const user_id = parseInt(req.params['id']);
 
-    // order not found
-    if (all_order < 1) {
-      return res.status(400).json({
-        status: 'failed',
-        message: 'Order not found',
-      });
+    // update status order in db
+    let order = await order_uc.statusSubmitOrder(
+      user_id,
+      order_constant.ORDER_SUBMITTED,
+    );
+
+    if (order === null) {
+      return res.status(400).json(res_data.failed('order is empty'));
     }
 
-    //success get all order
-    res.status(200).json({
-      status: 'ok',
-      message: 'Success',
-      data: all_order,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-const get_order_by_customerId = async (req, res, next) => {
-  try {
-    // get customer Id by params
-    const customer_id = req.params['customerId'];
-
-    // get order by customer id
-    const order = await Order.findAll({ where: { customerId: customer_id } });
-
-    // order not found
-    if (order < 1) {
-      return res.status(400).json({
-        status: 'failed',
-        message: 'Order not found',
-      });
-    }
-
-    //success get order by customer id
-    res.status(200).json({
-      status: 'ok',
-      message: 'Success',
-      data: order,
-    });
+    res.json(res_data.success());
   } catch (error) {
     next(error);
   }
 };
 
 module.exports = {
-  create_order,
-  update_status_order,
-  get_all_order,
-  get_order_by_customerId,
+  createOrder,
+  getPendingOrderByUserId,
+  statusSubmitOrder,
 };

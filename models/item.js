@@ -1,45 +1,22 @@
 'use strict';
 const { Model } = require('sequelize');
-
 module.exports = (sequelize, DataTypes) => {
   class Item extends Model {
-    static associate(models) {
-      Item.belongsToMany(models.Customer, {
-        through: models.Order,
-        foreignKey: 'itemId',
-      });
-    }
+    // static associate(models) {
+    //   this.belongsTo(models.OrderDetail, { foreignKey: 'item_id' });
+    // }
   }
   Item.init(
     {
-      itemId: {
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.INTEGER,
-      },
-      name: {
-        type: DataTypes.STRING(225),
-        validate: {
-          notEmpty: true,
-        },
-      },
-      category: {
-        type: DataTypes.STRING(50),
-        validate: {
-          notEmpty: true,
-        },
-      },
-      description: DataTypes.TEXT,
-      price: DataTypes.INTEGER,
+      name: DataTypes.STRING,
+      category_id: DataTypes.INTEGER,
       stock: DataTypes.INTEGER,
       sold: DataTypes.INTEGER,
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      price: DataTypes.INTEGER,
     },
     {
       sequelize,
       modelName: 'Item',
-      timestamps: true,
     },
   );
   return Item;
