@@ -52,13 +52,13 @@ const getPendingOrderByUserId = async (req, res, next) => {
   }
 };
 
-const statusSubmitOrder = async (req, res, next) => {
+const statusSubmittedOrder = async (req, res, next) => {
   try {
     // get user id with params
     const user_id = parseInt(req.params['id']);
 
     // update status order in db
-    let order = await order_uc.statusSubmitOrder(
+    let order = await order_uc.statusSubmittedOrder(
       user_id,
       order_constant.ORDER_SUBMITTED,
     );
@@ -76,5 +76,5 @@ const statusSubmitOrder = async (req, res, next) => {
 module.exports = {
   createOrder,
   getPendingOrderByUserId,
-  statusSubmitOrder,
+  statusSubmittedOrder,
 };

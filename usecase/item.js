@@ -1,6 +1,8 @@
-const { Item } = require('./../models');
+const { Item, Category, Sequelize } = require('./../models');
+const category_uc = require('../usecase/category');
 
 module.exports = {
+  // TODO: show item existing stock
   getListItem: async (category) => {
     let options = {};
 
@@ -8,11 +10,33 @@ module.exports = {
       options.where = category;
     }
 
-    let item = await Item.findAll(options);
+    let item = await Item.findAll({
+      attributes: { exclude: ['category_id'] },
+      include: [
+        {
+          model: Category,
+          as: 'category',
+          attributes: ['id', 'name'],
+        },
+      ],
+    });
+
+    console.log(options);
     return item;
   },
 
-  getItemById: async (id) => await Item.findOne({ where: id }),
+  getItemById: async (id) =>
+    await Item.findOne({
+      attributes: { exclude: ['category_id'] },
+      where: id,
+      include: [
+        {
+          model: Category,
+          as: 'category',
+          attributes: ['id', 'name'],
+        },
+      ],
+    }),
 
   addItem: async (item) => await Item.create(item),
 

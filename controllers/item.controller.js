@@ -18,6 +18,8 @@ const getListItem = async (req, res, next) => {
     // get list item
     let get_list_item = await item_uc.getListItem(options);
 
+    // TODO : relation not working if existing where
+
     // item not found
     if (get_list_item < 1) {
       return res

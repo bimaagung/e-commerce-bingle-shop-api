@@ -4,6 +4,8 @@ const order_uc = require('../usecase/order');
 const category_uc = require('../usecase/category');
 const order_constant = require('../internal/constant/order.constant');
 
+//  TODO : role json api for post
+
 const addItem = async (req, res, next) => {
   try {
     // get request body item
@@ -20,6 +22,8 @@ const addItem = async (req, res, next) => {
 
     res_data.data = item;
 
+    item.price = req.body.price;
+
     res.status(201).json(res_data.success());
   } catch (error) {
     next(error);
@@ -27,6 +31,7 @@ const addItem = async (req, res, next) => {
 };
 
 const updateItem = async (req, res, next) => {
+  // TODO : Perbaiki bagian sold
   try {
     // get id item by params
     const id = parseInt(req.params['id']);
@@ -47,8 +52,11 @@ const updateItem = async (req, res, next) => {
       return res.status(400).json(res_data.failed('Item not found', null));
     }
 
+    // get data item by id
+    let item_by_id = await item_uc.getItemById(id);
+
     // success update item
-    res.json(res_data.success(item));
+    res.json(res_data.success(item_by_id));
   } catch (error) {
     next(error);
   }
@@ -85,7 +93,6 @@ const getListOrder = async (req, res, next) => {
       orders = await order_uc.listOrderExcludePending();
     }
 
-    console.log(orders);
     res.json(res_data.success(orders));
   } catch (error) {
     next(error);
@@ -119,11 +126,52 @@ const updateStatusOrder = async (req, res, next) => {
 
 const addCategory = async (req, res, next) => {
   try {
-    const category = req.body;
+    const name = req.body.name;
 
-    await category_uc.addCategory(category);
+    let category = await category_uc.addCategory(name);
 
-    res.json(res_data.success(category));
+    if (category === null) {
+      return res.json(
+        res
+          .status(400)
+          .json(res_data.failed('category name already exists', null)),
+      );
+    }
+
+    res.json(res_data.success({ category_name: name }));
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteCategory = async (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id);
+
+    let category = await category_uc.deleteCategory(id);
+
+    if (category < 1) {
+      return res.status(400).json(res_data.failed('Category not found'));
+    }
+
+    res.json(res_data.success());
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateCategory = async (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id);
+    const name = req.body.name;
+
+    let category = await category_uc.updateCategory(id, name);
+
+    if (category < 1) {
+      return res.status(400).json(res_data.failed('Category not found', null));
+    }
+
+    res.json(res_data.success({ category_name: name }));
   } catch (error) {
     next(error);
   }
@@ -136,4 +184,6 @@ module.exports = {
   getListOrder,
   updateStatusOrder,
   addCategory,
+  deleteCategory,
+  updateCategory,
 };

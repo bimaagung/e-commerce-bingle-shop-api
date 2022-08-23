@@ -2,9 +2,16 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Item extends Model {
-    // static associate(models) {
-    //   this.belongsTo(models.OrderDetail, { foreignKey: 'item_id' });
-    // }
+    static associate(models) {
+      this.belongsTo(models.Category, {
+        foreignKey: { name: 'category_id', allowNull: false },
+        as: 'category',
+      });
+      // this.belongsTo(models.OrderDetail, {
+      //   foreignKey: { name: 'item_id', allowNull: false },
+      //   as: 'order_detail',
+      // });
+    }
   }
   Item.init(
     {
