@@ -19,7 +19,7 @@ module.exports = {
       }
 
       if (decoded.result.is_admin === true) {
-        return res.json(res_data.failed('invalid user'));
+        return res.json(res_data.failed('unauthorized user'));
       }
 
       req.user = decoded;
@@ -42,7 +42,7 @@ module.exports = {
       }
 
       if (decoded.result.is_admin === false) {
-        return res.json(res_data.failed('invalid admin'));
+        return res.json(res_data.failed('unauthorized admin'));
       }
 
       req.user = decoded;

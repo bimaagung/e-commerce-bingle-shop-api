@@ -10,6 +10,6 @@ const authController = require('../controllers/auth.controller');
 
 router.post('/login', loginValidation, authController.login);
 router.post('/register', registerValidation, authController.register);
-router.put('/user/change_password/:customerId', authController.update_password);
+//router.put('/user/change_password/:customerId', authController.update_password);
 
 module.exports = router;

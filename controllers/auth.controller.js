@@ -2,11 +2,9 @@ require('dotenv').config();
 
 const bcrypt = require('bcrypt');
 const { sign } = require('jsonwebtoken');
-const { Customer } = require('../models');
 const user_uc = require('../usecase/user');
 const res_data = require('../utils/response_data.util');
 
-// TODO : Ambigu bycript telp and address
 const register = async (req, res, next) => {
   try {
     const user = {
@@ -49,7 +47,7 @@ const login = async (req, res, next) => {
       password: req.body.password,
     };
 
-    //get customer by username in db
+    //get user by username in db
     const get_user = await user_uc.getUserByUsername(user.username);
 
     // check username is incorrect
@@ -83,7 +81,7 @@ const login = async (req, res, next) => {
       { result: res_data_user },
       process.env.JWT_KEY_SECRET,
       {
-        expiresIn: '1d',
+        expiresIn: '6h',
       },
     );
 
@@ -94,43 +92,4 @@ const login = async (req, res, next) => {
   }
 };
 
-const update_password = async (req, res, next) => {
-  try {
-    //get id customer by params
-    const customer_id = req.params['customerId'];
-
-    //get value password by req body
-    const plaint_text_password = req.body['password'];
-
-    // Convert plan text password ke hash_bycrypt
-    const salt_rounds = 10;
-    const salt = bcrypt.genSaltSync(salt_rounds);
-    const pass_hash = bcrypt.hashSync(plaint_text_password, salt);
-
-    //update password customer in db
-    const update_password = await Customer.update(
-      { password: pass_hash },
-      { where: { customerId: customer_id } },
-    );
-
-    console.log(update_password);
-
-    //customer not found
-    if (update_password < 1) {
-      return res.status(400).json({
-        status: 'failed',
-        message: 'Customer not found',
-      });
-    }
-
-    //success update password
-    res.status(200).json({
-      status: 'ok',
-      message: 'success',
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-module.exports = { register, login, update_password };
+module.exports = { register, login };

@@ -73,9 +73,45 @@ const itemValidation = async (req, res, next) => {
   next();
 };
 
+const changePasswordValidation = async (req, res, next) => {
+  const response = joi
+    .object({
+      password: joi.string().required(),
+    })
+    .validate(req.body);
+
+  if (response.error) {
+    return res
+      .status(400)
+      .json(res_data.failed(response.error.details[0].message));
+  }
+
+  next();
+};
+
+const updateUserValidation = async (req, res, next) => {
+  const response = joi
+    .object({
+      name: joi.string().required(),
+      telp: joi.number().required(),
+      address: joi.string().required(),
+    })
+    .validate(req.body);
+
+  if (response.error) {
+    return res
+      .status(400)
+      .json(res_data.failed(response.error.details[0].message));
+  }
+
+  next();
+};
+
 module.exports = {
   registerValidation,
   loginValidation,
   categoryValidation,
   itemValidation,
+  changePasswordValidation,
+  updateUserValidation,
 };

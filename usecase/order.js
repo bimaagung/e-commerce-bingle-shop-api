@@ -5,8 +5,6 @@ const item_uc = require('../usecase/item');
 const order_constant = require('../internal/constant/order.constant');
 
 const createOrder = async (user_id, items) => {
-  // TODO : Looping item not working
-
   //object order
   let order = {
     user_id: user_id,
@@ -106,9 +104,6 @@ const addDetailOrder = async (order_id, items) => {
 const listOrderDetailByUserId = async (order_id) =>
   await OrderDetail.findAll({ where: { order_id: order_id } });
 
-// TODO : masih ambigu mau ditampilkan hanya submit order
-// TODO : relation list detail item not work
-// TODO : add total harga
 const listOrderPendingCompleted = async () => {
   let orders = await Order.findAll({
     where: {
@@ -134,8 +129,6 @@ const listOrderPendingCompleted = async () => {
   return orders;
 };
 
-// TODO : relation list detail item not work
-// TODO : add total harga
 const listOrderExcludePending = async () => {
   let orders = await Order.findAll({
     where: {

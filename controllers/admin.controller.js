@@ -4,8 +4,6 @@ const order_uc = require('../usecase/order');
 const category_uc = require('../usecase/category');
 const order_constant = require('../internal/constant/order.constant');
 
-//  TODO : role json api for post
-
 const addItem = async (req, res, next) => {
   try {
     // get request body item
@@ -31,7 +29,6 @@ const addItem = async (req, res, next) => {
 };
 
 const updateItem = async (req, res, next) => {
-  // TODO : Perbaiki bagian sold
   try {
     // get id item by params
     const id = parseInt(req.params['id']);

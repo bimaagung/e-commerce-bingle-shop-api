@@ -45,7 +45,15 @@ module.exports = {
   addItem: async (item) => await Item.create(item),
 
   updateItem: async (id, item) =>
-    await Item.update(item, { where: { id: id } }),
+    await Item.update(
+      {
+        name: item.name,
+        category_id: item.category_id,
+        stock: item.stock,
+        price: item.price,
+      },
+      { where: { id: id } },
+    ),
 
   deleteItem: async (id) => await Item.destroy({ where: { id: id } }),
 };
