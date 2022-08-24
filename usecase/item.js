@@ -1,5 +1,5 @@
-const { Item, Category, Sequelize } = require('./../models');
-const category_uc = require('../usecase/category');
+const { Item, Category } = require('./../models');
+const { Op } = require('sequelize');
 
 module.exports = {
   // TODO: show item existing stock
@@ -10,6 +10,9 @@ module.exports = {
       options.where = category;
     }
 
+    console.log('category', category);
+
+    // get all item without stock 0
     let item = await Item.findAll({
       attributes: { exclude: ['category_id'] },
       include: [
@@ -19,9 +22,14 @@ module.exports = {
           attributes: ['id', 'name'],
         },
       ],
+      where: {
+        category_id: category,
+        stock: {
+          [Op.gte]: 0,
+        },
+      },
     });
 
-    console.log(options);
     return item;
   },
 
@@ -36,6 +44,11 @@ module.exports = {
           attributes: ['id', 'name'],
         },
       ],
+      where: {
+        stock: {
+          [Op.gte]: 0,
+        },
+      },
     }),
 
   addItem: async (item) => await Item.create(item),

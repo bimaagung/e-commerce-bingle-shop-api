@@ -10,9 +10,7 @@ const getListItem = async (req, res, next) => {
 
     // check filter
     if (typeof category !== 'undefined') {
-      options = {
-        category_id: category,
-      };
+      options = category;
     }
 
     // get list item
