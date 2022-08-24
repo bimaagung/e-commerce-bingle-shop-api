@@ -3,15 +3,7 @@ const { Op } = require('sequelize');
 
 module.exports = {
   // TODO: show item existing stock
-  getListItem: async (category) => {
-    let options = {};
-
-    if (typeof category !== 'undefined' || category !== null) {
-      options.where = category;
-    }
-
-    console.log('category', category);
-
+  getListItem: async () => {
     // get all item without stock 0
     let item = await Item.findAll({
       attributes: { exclude: ['category_id'] },
@@ -23,9 +15,8 @@ module.exports = {
         },
       ],
       where: {
-        category_id: category,
         stock: {
-          [Op.gte]: 0,
+          [Op.gt]: 0,
         },
       },
     });
@@ -46,7 +37,7 @@ module.exports = {
       ],
       where: {
         stock: {
-          [Op.gte]: 0,
+          [Op.gt]: 0,
         },
       },
     }),

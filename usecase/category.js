@@ -1,9 +1,19 @@
 const { Category, Item } = require('./../models');
+const { Op } = require('sequelize');
 
 const getListCategory = async () => {
   return await Category.findAll({
     include: [
-      { model: Item, as: 'items', attributes: ['id', 'name', 'stock', 'sold'] },
+      {
+        model: Item,
+        as: 'items',
+        attributes: ['id', 'name', 'stock', 'sold'],
+        where: {
+          stock: {
+            [Op.gt]: 0,
+          },
+        },
+      },
     ],
   });
 };
@@ -12,7 +22,16 @@ const getCategoryById = async (id) =>
   await Category.findOne({
     where: { id: id },
     include: [
-      { model: Item, as: 'items', attributes: ['id', 'name', 'stock', 'sold'] },
+      {
+        model: Item,
+        as: 'items',
+        attributes: ['id', 'name', 'stock', 'sold'],
+        where: {
+          stock: {
+            [Op.gt]: 0,
+          },
+        },
+      },
     ],
   });
 

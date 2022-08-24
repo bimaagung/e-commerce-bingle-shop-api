@@ -3,18 +3,8 @@ const res_data = require('../utils/response_data.util');
 
 const getListItem = async (req, res, next) => {
   try {
-    //get query category
-    let category = req.query['category'];
-    // filter
-    let options = null;
-
-    // check filter
-    if (typeof category !== 'undefined') {
-      options = category;
-    }
-
     // get list item
-    let get_list_item = await item_uc.getListItem(options);
+    let get_list_item = await item_uc.getListItem();
 
     // TODO : relation not working if existing where
 
