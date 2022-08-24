@@ -52,7 +52,7 @@
 
 <div style="width: 250px;">
   
-  ![](public/images/erd_bingle_shop.jpeg)
+  ![](erd_bingle_shop.png)
   
 </div>
 
