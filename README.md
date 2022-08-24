@@ -10,6 +10,8 @@
 - Create Order [Auth bearer token user]
 - Get Detail Pending Order [Auth bearer token user]
 - Submit Order  [Auth bearer token user]
+- Change Password [Auth bearer token user]
+- Update Profile User [Auth bearer token user]
 
 ### Admin
   
