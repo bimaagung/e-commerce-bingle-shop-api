@@ -32,6 +32,18 @@
 3. run terminal server `npm run start` or `npm run start-dev`[with nodemon] 
 4. configuration db and server in file `.env`
  
+## Package
+ - bcrypt  = encrypt password 
+ - dotenv = create environment variabel 
+ - express = framework node js
+ - joi = form validation
+ - jsonwebtoken = create token auth
+ - morgan = log 
+ - pg = adapter postgres
+ - pg-hstore = adapter postgres
+ - sequelize = orm database
+ - sequelize-cli = command orm database
+
 ## ERD
 
 <div style="width: 250px;">
