@@ -45,14 +45,14 @@ const getOrderPendingByUserId = async (user_id) => {
     ],
   });
 
-  // for check create order
+  // for check order pending before create order
   if (order === null) {
     return null;
   }
   // get sum qty and price order detail by order id
   let total_qty_price = await totalQtyPriceOrder(order.id);
 
-  // for check create order
+  // for check order pending before create order
   if (total_qty_price === null) {
     return order;
   }
@@ -200,11 +200,17 @@ const statusSubmittedOrder = async (user_id, status) => {
 
   // reduce stock each item
   order_detail.forEach(async (item) => {
-    await updateStockItem(
-      item.item_id,
-      item.qty,
-      order_constant.ORDER_SUBMITTED,
-    );
+    let item_data = await item_uc.getItemById(item.item_id);
+
+    if (item_data.stock <= 0) {
+      return;
+    } else {
+      await updateStockItem(
+        item.item_id,
+        item.qty,
+        order_constant.ORDER_SUBMITTED,
+      );
+    }
   });
 
   // updated status order to submited
@@ -247,20 +253,26 @@ const updateStockItem = async (item_id, qty, status) => {
   // get item by item_id
   let item_by_id = await item_uc.getItemById(item_id);
 
-  let reduce_stock = 0;
+  let cal_stock = 0;
+  let cal_sold = 0;
 
   if (status === order_constant.ORDER_SUBMITTED) {
     // calculate reduce stock item
-    reduce_stock = item_by_id.stock - qty;
+    cal_stock = item_by_id.stock - qty;
+    cal_sold = item_by_id.sold + qty;
   }
 
   if (status === order_constant.ORDER_CANCELED) {
     // undo reduce stock item
-    reduce_stock = item_by_id.stock + qty;
+    cal_stock = item_by_id.stock + qty;
+    cal_sold = item_by_id.sold - qty;
   }
 
   // update stock has been submited order
-  return await Item.update({ stock: reduce_stock }, { where: { id: item_id } });
+  return await Item.update(
+    { stock: cal_stock, sold: cal_sold },
+    { where: { id: item_id } },
+  );
 };
 
 module.exports = {
