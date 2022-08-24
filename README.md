@@ -42,7 +42,7 @@
  - express = framework node js
  - joi = form validation
  - jsonwebtoken = create token auth
- - morgan = log 
+ - morgan = HTTP request logger middleware
  - pg = adapter postgres
  - pg-hstore = adapter postgres
  - sequelize = orm database
