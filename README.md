@@ -29,8 +29,12 @@
 
 1. clone this project `git clone https://github.com/bimaagung/bingle-shop-api.git`
 2. Install Package `npm install`
-3. run terminal server `npm run start` or `npm run start-dev`[with nodemon] 
-4. configuration db and server in file `.env`
+3. configuration db and server in file `.env`
+4. run terminal server `npm run start` or `npm run start-dev`[with nodemon] 
+5. import file postman 
+6. try api url endpoint in postman
+7. For private endpoints don't forget to add bearer token (user/admin) in postman
+
  
 ## Package
  - bcrypt  = encrypt password 
