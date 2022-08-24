@@ -27,6 +27,8 @@ const createOrder = async (req, res, next) => {
     // get pending by user id in db
     order_user_id = await order_uc.getOrderPendingByUserId(user_id);
 
+    order_user_id['order_details'] = items;
+
     // success create order
     res.status(201).json(res_data.success(order_user_id));
   } catch (error) {

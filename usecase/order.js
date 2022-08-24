@@ -45,13 +45,20 @@ const getOrderPendingByUserId = async (user_id) => {
     ],
   });
 
+  // for check create order
   if (order === null) {
     return null;
   }
   // get sum qty and price order detail by order id
   let total_qty_price = await totalQtyPriceOrder(order.id);
 
+  // for check create order
+  if (total_qty_price === null) {
+    return order;
+  }
+
   let order_data = order.dataValues;
+
   // add total qty order and total price order
   order_data.total_qty_order = parseInt(total_qty_price.qty);
   order_data.total_price_order = parseInt(total_qty_price.total_price);
