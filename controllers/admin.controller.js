@@ -50,7 +50,7 @@ const updateItem = async (req, res, next) => {
     }
 
     // get data item by id
-    let item_by_id = await item_uc.getItemById(id);
+    let item_by_id = await item_uc.getItemById(4);
 
     // success update item
     res.json(res_data.success(item_by_id));

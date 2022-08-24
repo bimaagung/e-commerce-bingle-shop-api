@@ -133,6 +133,7 @@ const listOrderExcludePending = async () => {
   let orders = await Order.findAll({
     where: {
       [Op.or]: [
+        { status: order_constant.ORDER_COMPLETED },
         { status: order_constant.ORDER_PROCESSED },
         { status: order_constant.ORDER_SUBMITTED },
       ],

@@ -8,11 +8,6 @@ const getListCategory = async () => {
         model: Item,
         as: 'items',
         attributes: ['id', 'name', 'stock', 'sold'],
-        where: {
-          stock: {
-            [Op.gt]: 0,
-          },
-        },
       },
     ],
   });
@@ -26,11 +21,6 @@ const getCategoryById = async (id) =>
         model: Item,
         as: 'items',
         attributes: ['id', 'name', 'stock', 'sold'],
-        where: {
-          stock: {
-            [Op.gt]: 0,
-          },
-        },
       },
     ],
   });

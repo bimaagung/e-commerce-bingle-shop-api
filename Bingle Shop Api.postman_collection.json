@@ -1,0 +1,887 @@
+{
+	"info": {
+		"_postman_id": "9f2f5169-d60c-49ce-a0f0-70025d12df77",
+		"name": "Bingle Shop Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "List Category",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/category/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"category",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/category/detail/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"category",
+								"detail",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Item",
+			"item": [
+				{
+					"name": "Get All Items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/item",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Item By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/item/detail/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"item",
+								"detail",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register - user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Bima Agung Setya Budi\",\r\n    \"telp\" : \"085524818591\",\r\n    \"address\" : \"Gembong, Pati, Jawa Tengah\",\r\n    \"username\" : \"bima\",\r\n    \"password\" : \"12345678\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login - user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"bima\",\r\n    \"password\" : \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login - admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsibmFtZSI6IkJpbWEgQWd1bmcgU2V0eWEgQnVkaSIsInRlbHAiOiIwODU1MjQ4MTg1OTEiLCJhZGRyZXNzIjoiR2VtYm9uZywgUGF0aSwgSmF3YSBUZW5nYWgiLCJ1c2VybmFtZSI6ImJpbWEiLCJpc19hZG1pbiI6ZmFsc2V9LCJpYXQiOjE2NjEzNTM2MzAsImV4cCI6MTY2MTM3NTIzMH0.ukdKUVB6DcvIZ67TtA4wFzc5PLQNv8b47bx05qIY1vU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"item_id\": 3,\r\n        \"qty\": 2\r\n    },\r\n    {\r\n        \"item_id\": 2,\r\n        \"qty\": 4\r\n    },\r\n    {\r\n        \"item_id\": 1,\r\n        \"qty\": 4\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/order/create/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"order",
+								"create",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Order Pending",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsibmFtZSI6IkJpbWEgQWd1bmcgU2V0eWEgQnVkaSIsInRlbHAiOiIwODU1MjQ4MTg1OTEiLCJhZGRyZXNzIjoiR2VtYm9uZywgUGF0aSwgSmF3YSBUZW5nYWgiLCJ1c2VybmFtZSI6ImJpbWEiLCJpc19hZG1pbiI6ZmFsc2V9LCJpYXQiOjE2NjEzNTM2MzAsImV4cCI6MTY2MTM3NTIzMH0.ukdKUVB6DcvIZ67TtA4wFzc5PLQNv8b47bx05qIY1vU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/order/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"order",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Status Order Submit",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsibmFtZSI6IkJpbWEgQWd1bmcgU2V0eWEgQnVkaSIsInRlbHAiOiIwODU1MjQ4MTg1OTEiLCJhZGRyZXNzIjoiR2VtYm9uZywgUGF0aSwgSmF3YSBUZW5nYWgiLCJ1c2VybmFtZSI6ImJpbWEiLCJpc19hZG1pbiI6ZmFsc2V9LCJpYXQiOjE2NjEzMzI4MDIsImV4cCI6MTY2MTQxOTIwMn0.C73og80fMbacXrfLCYH4RuuV7ygLPWyLvlsXWFXIAOY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/order/submit/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"order",
+								"submit",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Item",
+					"item": [
+						{
+							"name": "Update Item",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsibmFtZSI6IkFkbWluIiwidGVscCI6bnVsbCwiYWRkcmVzcyI6bnVsbCwidXNlcm5hbWUiOiJhZG1pbiIsImlzX2FkbWluIjp0cnVlfSwiaWF0IjoxNjYxMzUyNDUxLCJleHAiOjE2NjEzNzQwNTF9.b3N-fdk5ipzkMA_mYZBuprNioF2GNi9hao3vqRTJZEw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Xiomi Note 10\",\r\n    \"category_id\": 1,\r\n    \"stock\": 12,\r\n    \"price\": 3200000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/admin/item/update/4",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"item",
+										"update",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Item",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsibmFtZSI6IkFkbWluIiwidGVscCI6bnVsbCwiYWRkcmVzcyI6bnVsbCwidXNlcm5hbWUiOiJhZG1pbiIsImlzX2FkbWluIjp0cnVlfSwiaWF0IjoxNjYxMzUyNDUxLCJleHAiOjE2NjEzNzQwNTF9.b3N-fdk5ipzkMA_mYZBuprNioF2GNi9hao3vqRTJZEw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Samsung Galaxy A03\",\r\n    \"category_id\": 1,\r\n    \"stock\": 10,\r\n    \"price\": 1300000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/admin/item/add",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"item",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Item",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsibmFtZSI6IkFkbWluIiwidGVscCI6bnVsbCwiYWRkcmVzcyI6bnVsbCwidXNlcm5hbWUiOiJhZG1pbiIsImlzX2FkbWluIjp0cnVlfSwiaWF0IjoxNjYxMzUyNDUxLCJleHAiOjE2NjEzNzQwNTF9.b3N-fdk5ipzkMA_mYZBuprNioF2GNi9hao3vqRTJZEw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/admin/item/delete/4",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"item",
+										"delete",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Order",
+					"item": [
+						{
+							"name": "Change Status Order - Processed",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsibmFtZSI6IkJpbWEiLCJ0ZWxwIjoiMDg1MjQxODI4NTkxIiwiYWRkcmVzcyI6IkdlbWJvbmcsIFBhdGksIEphd2EgVGVuZ2FoIiwidXNlcm5hbWUiOiJhZG1pbiIsImlzX2FkbWluIjp0cnVlfSwiaWF0IjoxNjYxMzUzNzU5LCJleHAiOjE2NjEzNzUzNTl9.L_pY8ejnxnceUjelhy6wSE2cqqwsanoLuTSsJhM5eIg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"status\": \"ORDER_PROCESSED\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/admin/order/update/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"order",
+										"update",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Status Order - Completed",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsibmFtZSI6IkFkbWluIiwidGVscCI6bnVsbCwiYWRkcmVzcyI6bnVsbCwidXNlcm5hbWUiOiJhZG1pbiIsImlzX2FkbWluIjp0cnVlfSwiaWF0IjoxNjYxMzM2NTc5LCJleHAiOjE2NjE0MjI5Nzl9.LZBSoFgtdKuq7QLjzO7K1rqkKDiYv4zjQl524DSbp5w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"status\": \"ORDER_COMPLETED\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/admin/order/update/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"order",
+										"update",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Status Order - Canceled",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"status\": \"ORDER_CANCELED\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/admin/order/update/3",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"order",
+										"update",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Order - Completed or Pending",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsibmFtZSI6IkFkbWluIiwidGVscCI6bnVsbCwiYWRkcmVzcyI6bnVsbCwidXNlcm5hbWUiOiJhZG1pbiIsImlzX2FkbWluIjp0cnVlfSwiaWF0IjoxNjYxMzE1NDA4LCJleHAiOjE2NjE0MDE4MDh9.1SmTLJTzp-GFpBMSkBDsKLm6YtkrisNLdAoH_uAjgA4",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/admin/order?status=completed",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"order"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "completed"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Order - Exclude Pending",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsibmFtZSI6IkFkbWluIiwidGVscCI6bnVsbCwiYWRkcmVzcyI6bnVsbCwidXNlcm5hbWUiOiJhZG1pbiIsImlzX2FkbWluIjp0cnVlfSwiaWF0IjoxNjYxMzE1NDA4LCJleHAiOjE2NjE0MDE4MDh9.1SmTLJTzp-GFpBMSkBDsKLm6YtkrisNLdAoH_uAjgA4",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/admin/order",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"order"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Category",
+					"item": [
+						{
+							"name": "Add Category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsibmFtZSI6IkFkbWluIiwidGVscCI6bnVsbCwiYWRkcmVzcyI6bnVsbCwidXNlcm5hbWUiOiJhZG1pbiIsImlzX2FkbWluIjp0cnVlfSwiaWF0IjoxNjYxMzUyNDUxLCJleHAiOjE2NjEzNzQwNTF9.b3N-fdk5ipzkMA_mYZBuprNioF2GNi9hao3vqRTJZEw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Kipas\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/admin/category/add",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"category",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsibmFtZSI6IkFkbWluIiwidGVscCI6bnVsbCwiYWRkcmVzcyI6bnVsbCwidXNlcm5hbWUiOiJhZG1pbiIsImlzX2FkbWluIjp0cnVlfSwiaWF0IjoxNjYxMzUyNDUxLCJleHAiOjE2NjEzNzQwNTF9.b3N-fdk5ipzkMA_mYZBuprNioF2GNi9hao3vqRTJZEw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Laptop\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/admin/category/update/2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"category",
+										"update",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsibmFtZSI6IkFkbWluIiwidGVscCI6bnVsbCwiYWRkcmVzcyI6bnVsbCwidXNlcm5hbWUiOiJhZG1pbiIsImlzX2FkbWluIjp0cnVlfSwiaWF0IjoxNjYxMzUyNDUxLCJleHAiOjE2NjEzNzQwNTF9.b3N-fdk5ipzkMA_mYZBuprNioF2GNi9hao3vqRTJZEw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/admin/category/delete/3",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"category",
+										"delete",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Change Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsibmFtZSI6IkJpbWEgQWd1bmcgU2V0eWEgQnVkaSIsInRlbHAiOiIwODU1MjQ4MTg1OTEiLCJhZGRyZXNzIjoiR2VtYm9uZywgUGF0aSwgSmF3YSBUZW5nYWgiLCJ1c2VybmFtZSI6ImJpbWEiLCJpc19hZG1pbiI6ZmFsc2V9LCJpYXQiOjE2NjEzNDk5NzAsImV4cCI6MTY2MTQzNjM3MH0.Lk_QFBD331Z4yWQeXvRlKKfDV-Fh3qbj0DLj97M6rDA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\":\"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/user/change-password/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"change-password",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsibmFtZSI6IkJpbWEgQWd1bmcgU2V0eWEgQnVkaSIsInRlbHAiOiIwODU1MjQ4MTg1OTEiLCJhZGRyZXNzIjoiR2VtYm9uZywgUGF0aSwgSmF3YSBUZW5nYWgiLCJ1c2VybmFtZSI6ImJpbWEiLCJpc19hZG1pbiI6ZmFsc2V9LCJpYXQiOjE2NjEzNDk5NzAsImV4cCI6MTY2MTQzNjM3MH0.Lk_QFBD331Z4yWQeXvRlKKfDV-Fh3qbj0DLj97M6rDA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Bima\",\r\n    \"telp\":\"085241828591\",\r\n    \"address\":\"Gembong, Pati, Jawa Tengah\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/user/update/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

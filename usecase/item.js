@@ -35,11 +35,6 @@ module.exports = {
           attributes: ['id', 'name'],
         },
       ],
-      where: {
-        stock: {
-          [Op.gt]: 0,
-        },
-      },
     }),
 
   addItem: async (item) => await Item.create(item),
