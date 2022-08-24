@@ -45,6 +45,9 @@ const getOrderPendingByUserId = async (user_id) => {
     ],
   });
 
+  if (order === null) {
+    return null;
+  }
   // get sum qty and price order detail by order id
   let total_qty_price = await totalQtyPriceOrder(order.id);
 

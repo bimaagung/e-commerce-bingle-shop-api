@@ -4,27 +4,31 @@ const logger = require('morgan');
 
 const app = express();
 
-const host = 'localhost';
-const port = 3000;
+const serverError = require('./middleware/server_error');
 
-const indexRouter = require('./routes/index');
+const index_router = require('./routes/index.routes');
+const auth_router = require('./routes/auth.routes');
+const category_router = require('./routes/category.routes');
+const item_router = require('./routes/item.routes');
+const order_router = require('./routes/order.routes');
+const admin_router = require('./routes/admin.routes');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/', indexRouter);
+app.use('/', index_router);
+app.use('/api/auth/', auth_router);
+app.use('/api/category/', category_router);
+app.use('/api/item/', item_router);
+app.use('/api/order/', order_router);
+app.use('/api/admin/', admin_router);
 
-function errorHandler(err, req, res, next) {
-  console.log(err);
-  res.status(500).json({
-    status: 'failed',
-    message: err.message,
-  });
-}
+// handle server error
+app.use(serverError);
 
-app.use(errorHandler);
-
-app.listen(port, host, () => {
-  console.log(`server running on http://${host}:${port}`);
+app.listen(process.env.PORT, process.env.HOST, () => {
+  console.log(
+    `server running on http://${process.env.HOST}:${process.env.PORT}`,
+  );
 });

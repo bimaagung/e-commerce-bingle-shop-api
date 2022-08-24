@@ -6,7 +6,7 @@ const order_constant = require('../internal/constant/order.constant');
 const createOrder = async (req, res, next) => {
   try {
     // get req user id with params
-    let user_id = parseInt(req.params['id']);
+    let user_id = parseInt(req.params.id);
 
     // get req items in body
     let items = req.body;

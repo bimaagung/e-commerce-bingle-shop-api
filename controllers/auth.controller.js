@@ -1,8 +1,12 @@
+require('dotenv').config();
+
 const bcrypt = require('bcrypt');
+const { sign } = require('jsonwebtoken');
 const { Customer } = require('../models');
 const user_uc = require('../usecase/user');
 const res_data = require('../utils/response_data.util');
 
+// TODO : Ambigu bycript telp and address
 const register = async (req, res, next) => {
   try {
     const user = {
@@ -29,6 +33,7 @@ const register = async (req, res, next) => {
 
     // delete password in object user
     delete user['password'];
+    delete user['is_admin'];
 
     // success create user
     res.status(201).json(res_data.success(user));
@@ -73,8 +78,17 @@ const login = async (req, res, next) => {
       is_admin: get_user.is_admin,
     };
 
+    // create token with expired 1 day
+    const json_token = sign(
+      { result: res_data_user },
+      process.env.JWT_KEY_SECRET,
+      {
+        expiresIn: '1d',
+      },
+    );
+
     //login success
-    res.json(res_data.success(res_data_user));
+    res.json(res_data.success({ id: get_user.id, token: json_token }));
   } catch (error) {
     next(error);
   }
