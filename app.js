@@ -4,6 +4,9 @@ const logger = require('morgan')
 
 const app = express()
 
+const host = process.env.HOST || '0.0.0.0'
+const port = process.env.PORT || 8080
+
 const serverError = require('./middleware/server_error')
 
 const index_router = require('./routes/index.routes')
@@ -35,7 +38,7 @@ const swaggerDocument = require('./docs/docs.json')
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-app.listen(process.env.PORT, process.env.HOST, () => {
+app.listen(port, host, () => {
   console.log(
     `server running on http://${process.env.HOST}:${process.env.PORT}`,
   )
